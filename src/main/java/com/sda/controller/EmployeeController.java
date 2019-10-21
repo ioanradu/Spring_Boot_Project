@@ -5,24 +5,68 @@ import com.sda.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class EmployeeController {
     @Autowired
     public EmployeeService employeeService;
 
     @RequestMapping("/employees") // face legatura cu front-end
-    @ResponseBody // astea 2 annotari ne spune ca primeste reuest-ul si creaza un raspuns
+    @ResponseBody // astea 2 annotari ne spune ca primeste request-ul si creaza un raspuns
     public ResponseEntity displayEmployees() {
-        List<EmployeeDTO> employeeDTOList =  employeeService.displayEmployeeDTO();
+        List<EmployeeDTO> employeeDTOList = employeeService.displayEmployeeDTO();
 
         return new ResponseEntity(employeeDTOList, HttpStatus.OK); // trimite status 200
     }
 
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "/createEmployee")
+    public EmployeeDTO createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        EmployeeDTO employeeDTO1 = employeeService.addEmployee(employeeDTO);
+        return employeeDTO1;
+    }
+
+    @DeleteMapping("/deleteEmployee/{name}")
+    public ResponseEntity<String> deleteEmployeeByName(@PathVariable String name) {
+        boolean isDeleted = employeeService.deleteEmployee(name);
+        if (!isDeleted) {
+            return new ResponseEntity<>("S-au gasit mai multi employees cu acest nume sau niciunul !!!", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Stergere efectuata cu succes!", HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/deleteEmployee/name/{name}/position/{position}")
+    public ResponseEntity<String> deleteEmployeeByNameAndPosition(@PathVariable String name, @PathVariable String position) {
+        boolean isDeleted = employeeService.deleteEmployeeByNameAndPosition(name, position);
+        if (!isDeleted) {
+            return new ResponseEntity<>("S-au gasit mai multi employees cu acest nume sau niciunul !!!", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>("Stergere efectuata cu succes!", HttpStatus.ACCEPTED);
+        }
+    }
+
+
+    @GetMapping("/employees/{name}")
+    public List<EmployeeDTO> displayEmployeeByName(@PathVariable String name) {
+        System.out.println("Numele folosit la cautare este: " + name);
+        List<EmployeeDTO> employeeDTOList = employeeService.displayEmployeesDTOByName(name);
+        return employeeDTOList;
+    }
+
+    @GetMapping("/employees/name/{name}/position/{position}")
+    public List<EmployeeDTO> displayEmployeeByNameAndPosition(@PathVariable String name, @PathVariable String position) {
+        System.out.println("Numele folosit la cautare este: " + name + " iar pozitia este " + position);
+        List<EmployeeDTO> employeeDTOList = employeeService.displayEmployeeDTOByNameAndPosition(name, position);
+        return employeeDTOList;
+    }
+
+    @PutMapping(path = "/updateEmployee/{name}", consumes = "application/json", produces = "application/json")
+    public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO, @PathVariable String name) {
+        System.out.println(name);
+        System.out.println(employeeDTO.getPosition() + "  " + employeeDTO.getAge());
+        EmployeeDTO employeeDTOUpdated = employeeService.updateEmployee(name, employeeDTO);
+        return employeeDTOUpdated;
+    }
 }

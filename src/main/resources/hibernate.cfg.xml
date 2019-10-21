@@ -9,11 +9,12 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">parola</property>
         <!--<property name="hibernate.hbm2ddl.auto">update</property>-->
-        <property name="hibernate.show_sql">false</property>
-        <property name="hibernate.format_sql">false</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
 
         <mapping class="com.sda.entities.Employee"/>
         <mapping class="com.sda.entities.Department"/>
+        <mapping class="com.sda.entities.Manager"/>
 
     </session-factory>
 </hibernate-configuration>

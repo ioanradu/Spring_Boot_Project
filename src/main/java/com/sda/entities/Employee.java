@@ -1,13 +1,15 @@
 package com.sda.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Ionel Radu on 10/15/2019
  */
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +24,10 @@ public class Employee {
     @Column(name = "age")
     private Integer age;
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinTable(name = "employees_departments", joinColumns = {@JoinColumn(name = "employees_id")},
                inverseJoinColumns = {@JoinColumn(name = "departments_id")})
-    private Department department;
+    private Department department;*/
 
     public Employee() {
     }
@@ -61,23 +63,23 @@ public class Employee {
     public void setAge(Integer age) {
         this.age = age;
     }
-
-    public Department getDepartment() {
+    /*public Department getDepartment() {
         return department;
     }
 
     public void setDepartment(Department department) {
         this.department = department;
-    }
+    }*/
 
     @Override
     public String toString() {
         return "Employee{" +
-                "id= " + id +
-                ", nameOfEmployee= '" + nameOfEmployee + '\'' +
-                ", position= '" + position + '\'' +
-                ", age= " + age +
-                ", department= " + department.getNameOfDepartment() +
+                "id=" + id +
+                ", nameOfEmployee='" + nameOfEmployee + '\'' +
+                ", position='" + position + '\'' +
+                ", age=" + age +
+              /*  ", department=" + department +*/
                 '}';
     }
+
 }

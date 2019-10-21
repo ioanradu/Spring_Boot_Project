@@ -10,14 +10,42 @@ import java.util.List;
 /**
  * Created by Ionel Radu on 10/15/2019
  */
+
 @Repository
 public class EmployeeRepo {
 
     @Autowired
     public EmployeeDao employeeDao;
 
-    public List<Employee> displayAllEmployees(){
+    public List<Employee> displayAllEmployees() {
         List<Employee> employeeList = employeeDao.displayAllEmployees();
         return employeeList;
+    }
+
+    public Employee createEmployee(Employee employee) {
+        Employee employee1 = employeeDao.createEmployee(employee);
+        return employee1;
+    }
+
+    public boolean deleteEmployee(String name) {
+        return employeeDao.deleteEmployee(name);
+    }
+
+    public List<Employee> displayEmployeesByName(String name) {
+        List<Employee> employeeList = employeeDao.displayEmployeesByName(name);
+        return employeeList;
+    }
+
+    public List<Employee> displayEmployeesByNameAndPosition(String name, String position) {
+        List<Employee> employeeList = employeeDao.displayEmployeesByNameAndPosition(name, position);
+        return employeeList;
+    }
+
+    public boolean deleteEmployeeByNameAndPosition(String name, String position) {
+        return employeeDao.deleteEmployeeByNameAndPosition(name, position);
+    }
+
+    public Employee updateEmployee(String name, Employee employee) {
+        return employeeDao.updateEmployee(name, employee);
     }
 }

@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class ManagerService {
 
-    public List<ManagerDTO> displayManagers(){
+    public List<ManagerDTO> displayManagers() {
         List<ManagerDTO> managerDTOList = new ArrayList<>();
         ManagerDTO managerDTO1 = new ManagerDTO();
         managerDTO1.setNameOfEmployee("Anton");

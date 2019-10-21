@@ -51,12 +51,6 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!--<dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring4</artifactId>
-            <version>3.0.9.RELEASE</version>
-        </dependency>-->
-
         <!--DEPENDENTA PENTRU assertj -->
         <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
         <dependency>
